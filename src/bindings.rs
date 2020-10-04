@@ -22,7 +22,15 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct XXH32_state_s {
-    _unused: [u8; 0],
+   total_len_32: XXH32_hash_t,
+   large_len: XXH32_hash_t,
+   v1: XXH32_hash_t,
+   v2: XXH32_hash_t,
+   v3: XXH32_hash_t,
+   v4: XXH32_hash_t,
+   mem32: [XXH32_hash_t; 4],
+   memsize: XXH32_hash_t,
+   reserved: XXH32_hash_t,
 }
 pub type XXH32_state_t = XXH32_state_s;
 extern "C" {
@@ -92,7 +100,15 @@ extern "C" {
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct XXH64_state_s {
-    _unused: [u8; 0],
+   total_len: XXH64_hash_t,
+   v1: XXH64_hash_t,
+   v2: XXH64_hash_t,
+   v3: XXH64_hash_t,
+   v4: XXH64_hash_t,
+   mem64: [XXH64_hash_t; 4],
+   memsize: XXH32_hash_t,
+   reserved32: XXH32_hash_t,
+   reserved64: XXH64_hash_t,
 }
 pub type XXH64_state_t = XXH64_state_s;
 extern "C" {
@@ -169,10 +185,35 @@ extern "C" {
         secretSize: usize,
     ) -> XXH64_hash_t;
 }
+pub const XXH3_INTERNALBUFFER_SIZE: usize = 256;
+pub const XXH3_SECRET_DEFAULT_SIZE: usize = 192;
+#[repr(C)]
+#[repr(align(64))]
+#[derive(Debug, Copy, Clone)]
+struct Acc([XXH64_hash_t; 8]);
+#[repr(C)]
+#[repr(align(64))]
+#[derive(Debug, Copy, Clone)]
+struct CustomSecret([u64; XXH3_SECRET_DEFAULT_SIZE / ::core::mem::size_of::<u64>()]);
+#[repr(C)]
+#[repr(align(64))]
+#[derive(Debug, Copy, Clone)]
+struct Buffer([u64; XXH3_INTERNALBUFFER_SIZE / ::core::mem::size_of::<u64>()]);
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct XXH3_state_s {
-    _unused: [u8; 0],
+    acc: Acc,
+    customSecret: CustomSecret,
+    buffer: Buffer,
+    bufferedSize: XXH32_hash_t,
+    reserved32: XXH32_hash_t,
+    nbStripesSoFar: usize,
+    totalLen: XXH64_hash_t,
+    nbStripesPerBlock: usize,
+    secretLimit: usize,
+    seed: XXH64_hash_t,
+    reserved64: XXH64_hash_t,
+    extSecret: *const u8,
 }
 pub type XXH3_state_t = XXH3_state_s;
 extern "C" {

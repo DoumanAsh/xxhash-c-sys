@@ -6,4 +6,4 @@
 
 Proper bindings to [xxHash](https://github.com/Cyan4973/xxHash)
 
-Version corresponds to xxHash [releases](https://github.com/Cyan4973/xxHash/releases)
+Current version corresponds to [0.8.1](https://github.com/Cyan4973/xxHash/releases/tag/v0.8.1)

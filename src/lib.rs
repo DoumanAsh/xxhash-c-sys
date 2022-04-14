@@ -1,5 +1,3 @@
+#![allow(warnings)]
 #![no_std]
-
-#[allow(warnings)]
-mod bindings;
-pub use bindings::*;
+include!(concat!(env!("OUT_DIR"), "/bindings.rs"));

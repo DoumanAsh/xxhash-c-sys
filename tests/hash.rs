@@ -36,7 +36,7 @@ fn should_work3() {
     let mut state = mem::MaybeUninit::uninit();
     let stream_result = unsafe {
         sys::XXH3_64bits_reset(state.as_mut_ptr());
-        sys::XXH3_64bits_update(state.as_mut_ptr(), data.as_ptr() as _, data.len() - 2);
+        sys::XXH3_64bits_update(state.as_mut_ptr(), data.as_ptr() as _, data.len() as u64 - 2);
         sys::XXH3_64bits_update(state.as_mut_ptr(), data.as_ptr().add(data.len() - 2) as _, 2);
         sys::XXH3_64bits_digest(state.as_ptr())
     };

@@ -14,7 +14,8 @@ include = [
     "**/*.c",
     "**/*.h",
     "Cargo.toml",
-    "README.md"
+    "README.md",
+    "LICENSE",
 ]
 
 [dependencies.libc]
@@ -22,4 +23,5 @@ version = "0.2"
 default-features = false
 
 [build-dependencies]
+bindgen = "0.59"
 cc = "1"

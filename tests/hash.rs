@@ -1,6 +1,4 @@
 use xxhash_c_sys::{self as sys, XXH3_64bits, XXH64};
-use core::mem;
-
 #[test]
 fn assert_version() {
     let version = unsafe {
@@ -33,12 +31,14 @@ fn should_work3() {
 
     assert_ne!(result, 0);
 
-    let mut state = mem::MaybeUninit::uninit();
     let stream_result = unsafe {
-        sys::XXH3_64bits_reset(state.as_mut_ptr());
-        sys::XXH3_64bits_update(state.as_mut_ptr(), data.as_ptr() as _, data.len() as u64 - 2);
-        sys::XXH3_64bits_update(state.as_mut_ptr(), data.as_ptr().add(data.len() - 2) as _, 2);
-        sys::XXH3_64bits_digest(state.as_ptr())
+        let state = sys::XXH3_createState();
+        sys::XXH3_64bits_reset(state);
+        sys::XXH3_64bits_update(state, data.as_ptr() as _, data.len() as u64 - 2);
+        sys::XXH3_64bits_update(state, data.as_ptr().add(data.len() - 2) as _, 2);
+        let result = sys::XXH3_64bits_digest(state);
+        sys::XXH3_freeState(state);
+        result
     };
 
     assert_eq!(stream_result, result);

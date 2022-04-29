@@ -14,7 +14,8 @@ include = [
     "**/*.c",
     "**/*.h",
     "Cargo.toml",
-    "README.md"
+    "README.md",
+    "LICENSE",
 ]
 
 [dependencies.libc]

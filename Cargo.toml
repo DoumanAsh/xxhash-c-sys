@@ -24,3 +24,6 @@ default-features = false
 
 [build-dependencies]
 cc = "1"
+
+[profile.release]
+codegen-units = 1

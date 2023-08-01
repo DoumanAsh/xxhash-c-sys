@@ -1,5 +1,5 @@
 fn main() {
-    let mut _cc = cc::Build::new()
+    cc::Build::new()
         .include("src/c/")
         .file("src/c/xxhash.c")
         .warnings(false)

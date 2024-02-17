@@ -12,7 +12,7 @@ jobs:
         os: [macos-latest, windows-latest, ubuntu-latest]
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v4
 
     - name: Install Rust Unix
       if: runner.os != 'Windows'
@@ -38,6 +38,9 @@ jobs:
       run: |
         cargo --version
         rustc --version
+
+    - name: Check no_std
+      run: cargo build --features no_std
 
     - name: Test
       run: cargo test

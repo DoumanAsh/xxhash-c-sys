@@ -24,3 +24,9 @@ default-features = false
 
 [build-dependencies]
 cc = "1"
+
+[features]
+# Disables stdlib related functionality
+# Specifically all functions that allocate will fail
+# This does not affect crate itself as it is just bindings and therefore always no_std
+no_std = []

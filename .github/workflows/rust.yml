@@ -1,6 +1,27 @@
 name: Rust
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/rust.yml'
+      - 'src/c/*.c'
+      - 'src/c/*.h'
+      - 'src/**/*.rs'
+      - 'tests/**/*.rs'
+      - 'Cargo.toml'
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    branches:
+      - '**'
+    paths:
+      - '.github/workflows/rust.yml'
+      - 'src/c/*.c'
+      - 'src/c/*.h'
+      - 'src/**/*.rs'
+      - 'tests/**/*'
+      - 'Cargo.toml'
 
 jobs:
   build:

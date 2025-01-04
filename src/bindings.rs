@@ -8,7 +8,7 @@ use ::core::ffi::c_void;
 
 pub const XXH_VERSION_MAJOR: u32 = 0;
 pub const XXH_VERSION_MINOR: u32 = 8;
-pub const XXH_VERSION_RELEASE: u32 = 2;
+pub const XXH_VERSION_RELEASE: u32 = 3;
 pub const XXH_VERSION_NUMBER: u32 = XXH_VERSION_MAJOR*100*100 + XXH_VERSION_MINOR*100 + XXH_VERSION_RELEASE;
 pub const XXH3_SECRET_SIZE_MIN: libc::c_int = 136;
 pub const XXH_errorcode_XXH_OK: XXH_errorcode = 0;
